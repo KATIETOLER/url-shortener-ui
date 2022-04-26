@@ -15,7 +15,7 @@ const UrlContainer = ({ urls }) => {
 	})
 
 	return (
-		<section>
+		<section className='url-container'>
 			{urlCards.length ? urlCards : <p>No urls yet! Find some to shorten!</p>}
 		</section>
 	)
