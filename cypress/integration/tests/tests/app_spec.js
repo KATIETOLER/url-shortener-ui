@@ -37,6 +37,7 @@ describe('Url-Shortener', () => {
 	})
 
 	it('should show the new card after submission ', () => {
+		cy.wait(2000)
 		cy.get('.App')
 			.get('.url')
 			.get('.url-container')
@@ -45,6 +46,7 @@ describe('Url-Shortener', () => {
 			.contains('coolest image of a cow')
 	})
 	it('should show the new card  with a shortened url', () => {
+		cy.wait(1000)
 		cy.get('.App')
 			.get('.url')
 			.get('.url-container')
