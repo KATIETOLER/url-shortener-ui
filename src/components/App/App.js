@@ -17,7 +17,7 @@ export class App extends Component {
 		fetchData
 			.getUrls()
 			.then((data) => this.setState({ urls: data.urls }))
-			.catch((error) => this.setState({ error: error }))
+			.catch((error) => this.setState({ error: error.message }))
 	}
 	addUrl = (newUrl) => {
 		fetchData
@@ -30,10 +30,7 @@ export class App extends Component {
 				}
 			})
 			.then(() => {
-				fetchData
-					.getUrls()
-					.then((data) => this.setState({ urls: data.urls }))
-					.catch((error) => this.setState({ error: error }))
+				fetchData.getUrls().then((data) => this.setState({ urls: data.urls }))
 			})
 	}
 	render() {
@@ -43,6 +40,11 @@ export class App extends Component {
 					<h1>URL Shortener</h1>
 					<UrlForm addUrl={this.addUrl} />
 				</header>
+				{console.log('err', this.state.error)}
+				{this.state.error && (
+					<h2 id='error'>Oh no! Something went wrong, try again!</h2>
+				)}
+
 				{this.state.urls && <UrlContainer urls={this.state.urls} />}
 			</main>
 		)
