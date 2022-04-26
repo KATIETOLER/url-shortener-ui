@@ -23,8 +23,11 @@ export class App extends Component {
 		fetchData
 			.postUrl(newUrl)
 			.then((response) => {
-				if (!response.ok) {
-					this.setState({ error: 'Something went wrong... try again later' })
+				if (response.status === 404) {
+					this.setState({ error: 'Page not found' })
+					console.log(this.state.error)
+				} else if (!response.ok) {
+					this.setState({ error: 'Something has gone wrong, try again later!' })
 				} else {
 					response.json()
 				}
@@ -40,7 +43,6 @@ export class App extends Component {
 					<h1>URL Shortener</h1>
 					<UrlForm addUrl={this.addUrl} />
 				</header>
-				{console.log('err', this.state.error)}
 				{this.state.error && (
 					<h2 id='error'>Oh no! Something went wrong, try again!</h2>
 				)}
