@@ -1,15 +1,13 @@
 describe('Url-Shortener', () => {
-	beforeEach(() => {
-		cy.visit('http://localhost:3000/')
-	})
-
 	it('When a user visits the page, they can view the page title s', () => {
-		cy.intercept('http://localhost:3001/api/v1/urls')
+		cy.intercept('http://localhost:3001/api/v1/urls', { fixture: 'urls.json' })
+		cy.visit('http://localhost:3000/')
 		cy.get('.App').get('h1').contains('URL Shortener')
 	})
 
 	it('When a user visits the page, they can view the existing shortened URLs', () => {
-		cy.intercept('http://localhost:3001/api/v1/urls')
+		cy.intercept('http://localhost:3001/api/v1/urls', { fixture: 'urls.json' })
+		cy.visit('http://localhost:3000/')
 		cy.get('.App')
 			.get('.url')
 			.get('.url-container')
@@ -29,9 +27,23 @@ describe('Url-Shortener', () => {
 				'https://i.pinimg.com/originals/5a/69/ba/5a69baacae4ad087da35b2b594b06edf.jpg'
 			)
 	})
-	it(
-		'should show a new shortened URL after a user fills out and submits the form'
-	)
+	it.only('should show a new shortened URL after a user fills out and submits the form', () => {
+		cy.visit('http://localhost:3000/')
+
+		cy.get('.form').get('#submit').click()
+		cy.get('.App')
+			.get('.url')
+			.get('.url-container')
+			.get('.url')
+			.eq(1)
+			.contains('coolest image of a cow')
+		cy.get('.App')
+			.get('.url')
+			.get('.url-container')
+			.get('.url')
+			.eq(1)
+			.contains('http://localhost:3001/useshorturl/2')
+	})
 })
 
 // * When a user visits the page, they can view the page title and the existing shortened URLs
