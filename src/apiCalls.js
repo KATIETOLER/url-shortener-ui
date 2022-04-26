@@ -11,8 +11,8 @@ const fetchData = {
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify({
-				long_url: newUrl.long_url,
 				title: newUrl.title,
+				long_url: newUrl.long_url,
 			}),
 		})
 	},
